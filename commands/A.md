@@ -2,33 +2,25 @@
 
 ## apt
 
-Description:
-
+Description  
 Advanced Package Tool used for package management.
-
-Syntax
-
-```bash
-apt [command]
-```
 
 Example
 
 ```bash
+apt update
 apt install git
 ```
 
-Use Case
-
-Install development tools.
+Use Case  
+Install or manage Linux packages.
 
 ---
 
 ## awk
 
-Description
-
-Text processing utility.
+Description  
+Text processing and pattern scanning tool.
 
 Example
 
@@ -36,4 +28,20 @@ Example
 ls -l | awk '{print $9}'
 ```
 
-Extract filenames from directory listing.
+Prints only file names from directory listing.
+
+---
+
+## alias
+
+Description  
+Create shortcuts for long commands.
+
+Example
+
+```bash
+alias update="pkg update && pkg upgrade"
+```
+
+Use Case  
+Save time for repetitive commands.
