@@ -36,6 +36,30 @@ chmod +x script.sh
 
 ---
 
+## chown
+
+Change file ownership.
+
+Example
+
+```bash
+chown user:user file.txt
+```
+
+---
+
+## clear
+
+Clear terminal screen.
+
+Example
+
+```bash
+clear
+```
+
+---
+
 ## cp
 
 Copy files.
