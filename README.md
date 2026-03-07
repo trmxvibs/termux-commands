@@ -1,9 +1,9 @@
 # Termux Command Encyclopedia
 
-![GitHub stars](https://img.shields.io/github/stars/USERNAME/termux-command-encyclopedia)
-![GitHub forks](https://img.shields.io/github/forks/USERNAME/termux-command-encyclopedia)
-![GitHub issues](https://img.shields.io/github/issues/USERNAME/termux-command-encyclopedia)
-![License](https://img.shields.io/github/license/USERNAME/termux-command-encyclopedia)
+![GitHub stars](https://img.shields.io/github/stars/trmxvibs/termux-commands)
+![GitHub forks](https://img.shields.io/github/forks/trmxvibs/termux-commands)
+![GitHub issues](https://img.shields.io/github/issues/trmxvibs/termux-commands)
+![License](https://img.shields.io/github/license/trmxvibs/termux-commands)
 
 The **Termux Command Encyclopedia** is the most comprehensive collection of commands used in Termux and Linux environments on Android.
 
@@ -40,6 +40,16 @@ pkg install python
 | [Networking Commands](NETWORKING.md) | Network tools |
 | [Termux API](TERMUX_API.md) | Device hardware integration |
 | [Learning Path](LEARNING_PATH.md) | Beginner → Advanced roadmap |
+
+# Command Navigation
+
+| A | B | C | D | E | F | G | H | I | J | K | L | M |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| [A](commands/A.md) | [B](commands/B.md) | [C](commands/C.md) | [D](commands/D.md) | [E](commands/E.md) | [F](commands/F.md) | [G](commands/G.md) | [H](commands/H.md) | [I](commands/I.md) | [J](commands/J.md) | [K](commands/K.md) | [L](commands/L.md) | [M](commands/M.md) |
+
+| N | O | P | Q | R | S | T | U | V | W | X | Y | Z |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| [N](commands/N.md) | [O](commands/O.md) | [P](commands/P.md) | [Q](commands/Q.md) | [R](commands/R.md) | [S](commands/S.md) | [T](commands/T.md) | [U](commands/U.md) | [V](commands/V.md) | [W](commands/W.md) | [X](commands/X.md) | [Y](commands/Y.md) | [Z](commands/Z.md) |
 
 ---
 
