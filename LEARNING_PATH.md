@@ -1,342 +1,326 @@
 # Termux Learning Path
 
-This guide provides a structured roadmap to learn Termux and Linux commands from **beginner to advanced level**.
+This guide provides a structured roadmap to learn **Termux and Linux commands from beginner to advanced level**.
 
 The goal is to help users gradually build practical skills in:
 
 - Linux terminal usage
-- File management
-- Automation
-- Networking
+- Android file management
+- Automation & scripting
+- Networking & server hosting
 - Security tools
-- Development environments
+- Mobile development environments
+
+---
+
+# Stage 0 — Initial Setup
+
+**Goal:** Prepare your Termux environment for daily use.
+
+### Key Concepts
+
+- Updating repositories
+- Granting storage permissions
+
+### Commands to Learn
+
+| Command | Purpose |
+|------|------|
+| `pkg update && pkg upgrade` | Update all installed packages |
+| `termux-setup-storage` | Grant Termux access to phone storage |
+
+### Example Workflow
+
+```bash
+pkg update && pkg upgrade -y
+termux-setup-storage
+cd ~/storage/downloads
+ls
+```
 
 ---
 
 # Stage 1 — Beginner (Terminal Basics)
 
-Goal: Become comfortable navigating the terminal.
+**Goal:** Become comfortable navigating the terminal and managing directories.
 
-Key Concepts
-
-- Directory navigation
-- File creation
-- Command syntax
-- Terminal shortcuts
-
-Commands to Learn
+### Commands to Learn
 
 | Command | Purpose |
 |------|------|
-| pwd | show current directory |
-| ls | list files |
-| cd | change directory |
-| mkdir | create folder |
-| touch | create file |
-| rm | delete files |
-| cp | copy files |
-| mv | move files |
-| clear | clear terminal |
-| history | command history |
+| `pwd` | Show current directory path |
+| `ls` | List files and folders |
+| `cd` | Change directory |
+| `mkdir` | Create a new folder |
+| `touch` | Create an empty file |
+| `rm` | Delete files (`rm -r` for folders) |
+| `cp` | Copy files |
+| `mv` | Move or rename files |
+| `clear` | Clear terminal screen |
+| `history` | View previously typed commands |
 
-Example Workflow
+### Real World Example
+
+Creating a workspace for scripts.
 
 ```bash
-mkdir project
-cd project
-touch index.html
+mkdir my_scripts
+cd my_scripts
+touch bot.py
 ls
 pwd
 ```
-
-Real World Example
-
-Creating a small project folder to store scripts or notes.
 
 ---
 
 # Stage 2 — File Reading & Editing
 
-Goal: Learn how to view and edit files.
+**Goal:** Learn how to view and edit text files from the terminal.
 
-Commands
+### Commands to Learn
 
 | Command | Purpose |
 |------|------|
-| cat | display file |
-| less | view file page by page |
-| head | first lines of file |
-| tail | last lines |
-| nano | basic editor |
-| vim | advanced editor |
+| `cat` | Display entire file content |
+| `less` | View file page by page |
+| `head` | Show first lines |
+| `tail` | Show last lines |
+| `nano` | Beginner text editor |
+| `vim` | Advanced text editor |
 
-Example
+### Example Workflow
 
 ```bash
-nano script.sh
+nano hello.sh
 ```
 
-Example Script
+Inside nano:
 
-```bash
-#!/bin/bash
-echo "Hello from Termux"
 ```
-
-Run it
-
-```bash
-bash script.sh
+Ctrl + O → Save
+Ctrl + X → Exit
 ```
 
 ---
 
-# Stage 3 — Permissions & Environment
+# Stage 3 — Archiving & Compression
 
-Goal: Understand Linux file permissions.
+**Goal:** Compress and extract files.
 
-Commands
+### Commands to Learn
 
 | Command | Purpose |
 |------|------|
-| chmod | change permissions |
-| chown | change owner |
-| whoami | current user |
-| id | user information |
-| env | environment variables |
+| `tar` | Create/extract `.tar.gz` archives |
+| `zip` | Compress files |
+| `unzip` | Extract `.zip` files |
 
-Example
+### Example
 
 ```bash
-chmod +x script.sh
+unzip project-master.zip
+cd project-master
 ```
-
-Now run directly
-
-```bash
-./script.sh
-```
-
-Real World Example
-
-Running automation scripts.
 
 ---
 
-# Stage 4 — Package Management
+# Stage 4 — Permissions & Environment
 
-Goal: Install tools and programming languages.
+**Goal:** Understand Linux permissions and variables.
 
-Commands
+### Commands
 
 | Command | Purpose |
 |------|------|
-| pkg | Termux package manager |
-| apt | Debian package manager |
-| dpkg | low level package tool |
+| `chmod` | Change file permissions |
+| `whoami` | Show current user |
+| `id` | Show user/group info |
+| `env` | Show environment variables |
+| `export` | Create environment variables |
 
-Example
-
-```bash
-pkg update
-pkg upgrade
-pkg install python
-```
-
-Example
+### Example
 
 ```bash
-python
+chmod +x hello.sh
+./hello.sh
 ```
-
-You now have a Python environment on your phone.
 
 ---
 
-# Stage 5 — Text Processing
+# Stage 5 — Package Management
 
-Goal: Process logs and large datasets.
+**Goal:** Install tools and programming languages.
 
-Commands
+### Commands
 
 | Command | Purpose |
 |------|------|
-| grep | search text |
-| awk | data extraction |
-| sed | text editing |
-| cut | column extraction |
-| sort | sort lines |
-| uniq | remove duplicates |
+| `pkg search` | Search packages |
+| `pkg install` | Install package |
+| `pkg uninstall` | Remove package |
+| `apt list --installed` | Show installed packages |
+| `dpkg -i` | Install local `.deb` file |
 
-Example
-
-```bash
-grep "error" log.txt
-```
-
-Example
+### Example
 
 ```bash
-cat users.txt | sort | uniq
+pkg search python
+pkg install python -y
+python --version
 ```
-
-Real World Example
-
-Analyzing server logs.
 
 ---
 
-# Stage 6 — Networking
+# Stage 6 — Text Processing
 
-Goal: Learn network diagnostics and remote access.
+**Goal:** Search and manipulate text efficiently.
 
-Commands
+### Commands
 
 | Command | Purpose |
 |------|------|
-| ping | connectivity test |
-| curl | API requests |
-| wget | download files |
-| ssh | remote login |
-| scp | file transfer |
-| netstat | network connections |
-| nmap | network scanning |
+| `grep` | Search patterns |
+| `awk` | Extract columns |
+| `sed` | Replace text |
+| `sort` | Sort lines |
+| `uniq` | Remove duplicates |
 
-Example
+### Example
 
 ```bash
+grep "ERROR" server_log.txt
+```
+
+---
+
+# Stage 7 — Networking
+
+**Goal:** Learn connectivity and remote access.
+
+### Commands
+
+| Command | Purpose |
+|------|------|
+| `ping` | Test internet connection |
+| `curl` | Fetch web/API data |
+| `wget` | Download files |
+| `ifconfig` / `ip a` | Show IP address |
+| `ssh` | Remote login |
+| `scp` | Secure file transfer |
+
+### Example
+
+```bash
+ifconfig
 ping google.com
 ```
 
-Example
-
-```bash
-ssh user@192.168.1.10 -p 8022
-```
-
-Real World Example
-
-Accessing a home server from your phone.
-
 ---
 
-# Stage 7 — System Monitoring
+# Stage 8 — System Monitoring
 
-Goal: Monitor processes and system usage.
+**Goal:** Monitor system resources.
 
-Commands
+### Commands
 
 | Command | Purpose |
 |------|------|
-| ps | running processes |
-| top | live process list |
-| htop | advanced monitor |
-| free | memory usage |
-| df | disk usage |
-| du | folder size |
+| `ps` | Show running processes |
+| `htop` | Process monitor |
+| `df -h` | Disk usage |
+| `du -sh` | Folder size |
+| `termux-wake-lock` | Prevent phone sleep |
 
-Example
+### Example
 
 ```bash
+pkg install htop
 htop
 ```
 
-Real World Example
-
-Identify which process is consuming CPU.
-
 ---
 
-# Stage 8 — Automation & Scripting
+# Stage 9 — Automation & Scripting
 
-Goal: Automate tasks using Bash scripts.
+**Goal:** Automate tasks using Bash scripts.
 
-Example Script
+### Example Script
 
 ```bash
 #!/bin/bash
 
-echo "Updating system..."
+echo "Starting Termux Maintenance..."
 
-pkg update
+termux-wake-lock
+
+pkg update -y
 pkg upgrade -y
+pkg clean
 
-echo "System updated"
+termux-wake-unlock
+
+echo "System successfully updated!"
 ```
 
-Save as
-
-```
-update.sh
-```
-
-Run
+Run script:
 
 ```bash
-bash update.sh
+chmod +x update_all.sh
+./update_all.sh
 ```
 
 ---
 
-# Stage 9 — Development Environment
+# Stage 10 — Development Environment
 
-Goal: Turn Termux into a development machine.
+**Goal:** Turn Termux into a development machine.
 
-Install tools
-
-```bash
-pkg install git
-pkg install nodejs
-pkg install python
-pkg install clang
-```
-
-Example
-
-```bash
-git clone https://github.com/user/project
-```
-
-Real World Example
-
-Developing code directly from mobile.
-
----
-
-# Stage 10 — Advanced Tools
-
-Goal: Advanced networking and security tools.
-
-Commands
+### Commands
 
 | Command | Purpose |
 |------|------|
-| nmap | network scanner |
-| hydra | brute force tool |
-| sqlmap | SQL injection testing |
-| metasploit | exploitation framework |
+| `git` | Version control |
+| `termux-api` | Access Android hardware |
 
-Example
+### Example
 
 ```bash
-nmap -sV 192.168.1.1
+pkg install git termux-api
+git clone https://github.com/your-username/project.git
+termux-battery-status
 ```
 
-Important
+---
 
-Use tools **only for legal and educational purposes**.
+# Stage 11 — Advanced & Security Tools
+
+⚠ Use only on **your own network or for legal research purposes**.
+
+### Tools
+
+- `nmap` → network scanner
+- `metasploit` → exploitation framework
+- `tshark` → network analyzer
+- `sqlmap` → database testing
+
+### Example
+
+```bash
+pkg install nmap
+nmap -sV 192.168.1.1
+```
 
 ---
 
 # Recommended Learning Strategy
 
-Daily practice:
+### Daily Practice
 
-1. Learn **5 commands per day**
-2. Try real examples
-3. Read command manuals
+- Learn **3–5 commands per day**
+- Practice typing commands yourself
+- Experiment with flags and options
 
-Example
+### Get Help
 
 ```bash
 man ls
@@ -347,16 +331,3 @@ or
 ```bash
 ls --help
 ```
-
----
-
-# Final Goal
-
-By completing this learning path you will be able to:
-
-- Use Linux terminal efficiently
-- Automate tasks
-- Manage servers
-- Develop software
-- Use advanced networking tools
-- Master Termux environment
