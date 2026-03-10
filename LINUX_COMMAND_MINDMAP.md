@@ -1,49 +1,83 @@
-# Linux Command Mindmap
+# Linux & Termux Command Mindmap
 
-```
-Linux Commands
+```json
+Termux & Linux Commands
 │
-├── File Management
+├── File & Directory Management
+│   ├── pwd
 │   ├── ls
 │   ├── cd
 │   ├── mkdir
-│   ├── rm
+│   ├── touch
 │   ├── cp
-│   └── mv
+│   ├── mv
+│   ├── rm
+│   └── find
 │
-├── Text Processing
+├── File Viewing & Editing
 │   ├── cat
+│   ├── less
+│   ├── head
+│   ├── tail
+│   ├── nano
+│   └── vim
+│
+├── Text Processing & Manipulation
 │   ├── grep
 │   ├── awk
 │   ├── sed
-│   └── cut
+│   ├── cut
+│   ├── sort
+│   └── wc
 │
-├── System Monitoring
+├── System & Storage Monitoring
+│   ├── ps
 │   ├── top
 │   ├── htop
 │   ├── free
+│   ├── df
+│   ├── du
 │   └── uptime
 │
-├── Networking
+├── Permissions & Environment
+│   ├── chmod
+│   ├── chown
+│   ├── whoami
+│   ├── env
+│   ├── export
+│   └── alias
+│
+├── Networking & Web
 │   ├── ping
+│   ├── ifconfig
+│   ├── curl
+│   ├── wget
 │   ├── ssh
 │   ├── scp
-│   ├── netstat
 │   └── nmap
 │
 ├── Package Management
-│   ├── apt
-│   ├── pkg
+│   ├── pkg (Termux)
+│   ├── apt (Debian)
 │   └── dpkg
 │
-├── Compression
+├── Archiving & Compression
 │   ├── tar
 │   ├── zip
-│   └── gzip
+│   ├── unzip
+│   ├── gzip
+│   └── bzip2
 │
-└── Development
-    ├── git
-    ├── gcc
-    ├── make
-    └── python
+├── Development & Scripting
+│   ├── bash
+│   ├── git
+│   ├── python
+│   ├── clang
+│   └── make
+│
+└── Termux Specific Tools
+    ├── termux-setup-storage
+    ├── termux-wake-lock
+    ├── termux-api
+    └── am (Activity Manager)
 ```
