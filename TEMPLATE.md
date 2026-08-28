@@ -2,7 +2,7 @@
 
 Copy this skeleton for every new command entry. Fill every section — a PR missing "Common Errors & Fixes" will be asked to add it.
 
-```markdown
+
 ## `command-name`
 
 **Category:** (File Management / Networking / Package Manager / Text Processing / System / Termux-API / etc.)
@@ -35,7 +35,7 @@ One real scenario where this command actually solves a problem.
 
 ### Related Commands
 `command-a`, `command-b`
-```
+
 
 ### Quality checklist before submitting a PR
 - [ ] Description written
