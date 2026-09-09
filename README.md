@@ -4,6 +4,7 @@
 
 ### *The most complete Termux + Linux command reference for Android — A to Z, zero to hero.*
 
+![CI](https://github.com/trmxvibs/termux-commands/actions/workflows/ci.yml/badge.svg?branch=main)
 ![GitHub stars](https://img.shields.io/github/stars/trmxvibs/termux-commands?style=for-the-badge&color=yellow&logo=github)
 ![GitHub forks](https://img.shields.io/github/forks/trmxvibs/termux-commands?style=for-the-badge&color=blue&logo=github)
 ![GitHub issues](https://img.shields.io/github/issues/trmxvibs/termux-commands?style=for-the-badge&color=orange&logo=github)
