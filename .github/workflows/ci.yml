@@ -1,0 +1,74 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  validate-repo:
+    name: Validate Repository Structure
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🔤 Check all A–Z command files exist
+        run: |
+          echo "Checking commands/A.md through commands/Z.md ..."
+          missing=0
+          for letter in {A..Z}; do
+            file="commands/${letter}.md"
+            if [ ! -f "$file" ]; then
+              echo "❌ Missing: $file"
+              missing=1
+            else
+              echo "✅ Found: $file"
+            fi
+          done
+          if [ "$missing" -eq 1 ]; then
+            echo "One or more command files are missing."
+            exit 1
+          fi
+
+      - name: 📄 Check core documentation files exist
+        run: |
+          echo "Checking core docs..."
+          files=(
+            "README.md"
+            "LICENSE"
+          )
+          missing=0
+          for f in "${files[@]}"; do
+            if [ ! -f "$f" ]; then
+              echo "❌ Missing: $f"
+              missing=1
+            else
+              echo "✅ Found: $f"
+            fi
+          done
+          if [ "$missing" -eq 1 ]; then
+            exit 1
+          fi
+
+      - name: 🚫 Check no markdown file is empty
+        run: |
+          echo "Checking for empty markdown files..."
+          empty=0
+          while IFS= read -r -d '' f; do
+            if [ ! -s "$f" ]; then
+              echo "❌ Empty file: $f"
+              empty=1
+            fi
+          done < <(find . -name "*.md" -not -path "./.git/*" -print0)
+          if [ "$empty" -eq 1 ]; then
+            echo "One or more markdown files are empty."
+            exit 1
+          fi
+          echo "✅ No empty markdown files found."
+
+      - name: 🎉 Success
+        run: echo "All checks passed! Repository structure looks good ✅"
