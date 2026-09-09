@@ -38,8 +38,13 @@
 | 27 | [Machine Learning Basics](#module-27--machine-learning-basics-on-termux) | scikit-learn on device |
 | 28 | [Full Stack Mini Project](#module-28--full-stack-mini-project-lamp-style) | PHP + SQLite server |
 | 29 | [Interview/Troubleshooting Practice](#module-29--interview--real-world-troubleshooting-practice) | Real scenarios |
-| 30 | [Capstone Project](#module-30--capstone-project) | Sab kuch ek jagah |
-| 31 | [Next Steps](#module-31--next-steps) | Aage kya seekhein |
+| 30 | [Working with APIs](#module-30--working-with-apis-curl--jq) | curl + jq, JSON parsing |
+| 31 | [Real-World Mini Projects](#module-31--real-world-mini-projects) | Telegram bot, weather notifier, scraper, file organizer |
+| 32 | [Termux + Docker/Containers](#module-32--termux--docker--containers) | proot-distro, remote Docker via SSH |
+| 33 | [Voice & AI Tools](#module-33--voice--ai-tools-on-termux) | Speech-to-text, TTS, local LLM |
+| 34 | [Android App Dev from Termux](#module-34--android-app-development-from-termux-build-an-apk) | Buildozer, Gradle, APK signing |
+| 35 | [Capstone Project](#module-35--capstone-project) | Sab kuch ek jagah |
+| 36 | [Next Steps](#module-36--next-steps) | Aage kya seekhein |
 | 📎 | [**Appendix — Complete Reference**](#-appendix--complete-reference-sab-kuch-ek-jagah) | Directory structure, sab shortcuts, glossary, FAQ, error fixes, package list, backup/restore, aliases, 1-page cheat sheet |
 
 ---
@@ -803,7 +808,246 @@ Ye scenarios khud solve karke practice karo (ye asli developer/sysadmin intervie
 
 ---
 
-## Module 30 — Capstone Project
+## Module 30 — Working with APIs (curl + jq)
+
+Real-world scripts aksar kisi API se data leke kaam karte hain. Yahan seekhoge kaise.
+
+```bash
+pkg install curl jq
+```
+
+**Example: Weather data ek API se fetch karo**
+```bash
+curl -s "https://wttr.in/Jodhpur?format=3"
+```
+
+**Example: JSON response ko parse karo**
+```bash
+curl -s "https://api.github.com/users/torvalds" | jq '.name, .public_repos, .followers'
+```
+
+`jq` cheatsheet:
+| Syntax | Kaam |
+|---|---|
+| `jq '.'` | Pura JSON pretty-print karo |
+| `jq '.key'` | Ek field nikaalo |
+| `jq '.[0]'` | Array ka pehla element |
+| `jq '.[] .name'` | Har object me se ek field nikaalo |
+
+---
+
+## Module 31 — Real-World Mini Projects
+
+Ab tak seekhi cheezon ko combine karke chhote real tools banate hain:
+
+### Project 1: Telegram Notification Bot (bina coding heavy)
+
+```bash
+pkg install curl
+BOT_TOKEN="your_bot_token"
+CHAT_ID="your_chat_id"
+
+curl -s -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" \
+  -d chat_id="$CHAT_ID" \
+  -d text="Termux se message aa raha hai!"
+```
+(BotFather se apna bot token lo, `@userinfobot` se apna chat_id lo)
+
+### Project 2: Daily Weather Notifier (cron + termux-api)
+
+```bash
+#!/bin/bash
+weather=$(curl -s "https://wttr.in/Jodhpur?format=3")
+termux-notification --title "Aaj ka Mausam" --content "$weather"
+```
+Isko cron me daily 7 baje chalane ke liye:
+```
+0 7 * * * bash ~/weather_notify.sh
+```
+
+### Project 3: Simple Web Scraper (Python)
+
+```bash
+pkg install python
+pip install requests beautifulsoup4
+```
+```python
+import requests
+from bs4 import BeautifulSoup
+
+r = requests.get("https://news.ycombinator.com")
+soup = BeautifulSoup(r.text, "html.parser")
+titles = soup.select(".titleline a")
+
+for t in titles[:10]:
+    print(t.text)
+```
+
+### Project 4: File Organizer Script
+
+```bash
+#!/bin/bash
+cd ~/storage/downloads
+mkdir -p Images PDFs Others
+
+for f in *; do
+  case "$f" in
+    *.jpg|*.png|*.jpeg) mv "$f" Images/ ;;
+    *.pdf) mv "$f" PDFs/ ;;
+    *) [ -f "$f" ] && mv "$f" Others/ ;;
+  esac
+done
+echo "Downloads organized!"
+```
+
+---
+
+## Module 32 — Termux + Docker / Containers
+
+**Sach baat:** Stock (non-rooted) Android par **real Docker daemon nahi chalta** — kyunki Docker ko Linux kernel ke `cgroups` aur `namespaces` chahiye jo bina root ke Android kernel expose nahi karta. Lekin container-jaisa isolation paane ke 3 practical tareeke hain:
+
+### Option A: proot-distro (already covered Module 22) — sabse aasan
+```bash
+pkg install proot-distro
+proot-distro install ubuntu
+proot-distro login ubuntu
+```
+Ye "container jaisa" isolated filesystem deta hai (namespaces ke bina, proot ke through) — development/testing ke liye kaafi hai.
+
+### Option B: Remote Docker via SSH (asli Docker chahiye to)
+Apne PC/VPS par Docker chalao, Termux se sirf control karo:
+```bash
+pkg install openssh
+ssh user@your-server
+# server par docker commands chalao
+docker ps
+docker run -it ubuntu bash
+```
+Ya Docker context use karke local Termux se remote daemon control karo:
+```bash
+docker context create remote --docker "host=ssh://user@your-server"
+docker context use remote
+docker ps
+```
+
+### Option C: Rooted device (advanced, risky)
+Agar phone rooted hai aur custom kernel support karta hai, tab hi native Docker/Podman chalne ke chances hain — ye course ka scope nahi hai kyunki rooting risk bharra kaam hai.
+
+**Practical suggestion:** Learning/dev ke liye Option A (proot-distro) use karo; production containers ke liye Option B (remote server) sabse reliable hai.
+
+---
+
+## Module 33 — Voice & AI Tools on Termux
+
+### Speech-to-Text & Text-to-Speech (Termux:API)
+
+```bash
+pkg install termux-api
+```
+
+```bash
+# Bolo aur text me convert ho jaayega
+termux-speech-to-text
+
+# Text ko bulwao
+termux-tts-speak "Namaste, main Termux hoon"
+```
+
+### Chhota Voice-Command Script
+
+```bash
+#!/bin/bash
+text=$(termux-speech-to-text)
+echo "Aapne kaha: $text"
+
+if [[ "$text" == *"time"* ]]; then
+  termux-tts-speak "Abhi time hai $(date +%H:%M)"
+elif [[ "$text" == *"battery"* ]]; then
+  level=$(termux-battery-status | jq '.percentage')
+  termux-tts-speak "Battery $level percent hai"
+else
+  termux-tts-speak "Maaf kijiye, samajh nahi aaya"
+fi
+```
+
+### Local LLM Chalana (Offline AI, chhote models)
+
+Bade AI models phone par chalna mushkil hai, lekin `llama.cpp` jaisa lightweight engine chhote **quantized (GGUF)** models chala sakta hai:
+
+```bash
+pkg install git cmake clang
+git clone https://github.com/ggerganov/llama.cpp
+cd llama.cpp
+cmake -B build
+cmake --build build --config Release
+```
+Fir ek chhota GGUF model (jaise 1B-3B parameter wala) download karke:
+```bash
+./build/bin/llama-cli -m model.gguf -p "Termux ke baare me batao"
+```
+⚠️ RAM/storage ki limit hoti hai — sirf **chhote (1B-3B) quantized models** hi realistically phone par chalte hain, bade models (7B+) slow ya crash ho sakte hain low-RAM devices par.
+
+### Cloud AI API Use Karna (jab internet ho)
+
+```bash
+pkg install python
+pip install requests
+```
+```python
+import requests
+response = requests.post(
+    "https://api.anthropic.com/v1/messages",
+    headers={"x-api-key": "YOUR_KEY", "anthropic-version": "2023-06-01"},
+    json={"model": "claude-sonnet-4-6", "max_tokens": 200,
+          "messages": [{"role": "user", "content": "Hello from Termux!"}]}
+)
+print(response.json())
+```
+
+---
+
+## Module 34 — Android App Development from Termux (Build an APK)
+
+⚠️ **Realistic expectation set karna zaroori hai:** Termux full **Android Studio** replace nahi karta — RAM/storage limits ki wajah se — lekin **chhote/simple APKs** command-line se banana possible hai.
+
+### Method A: Python apps → APK via Buildozer (proot-distro ke andar, recommended)
+
+```bash
+proot-distro install ubuntu
+proot-distro login ubuntu
+apt update && apt install -y python3-pip git zip openjdk-17-jdk
+pip install buildozer cython
+```
+Ek Kivy Python app folder me:
+```bash
+buildozer init
+buildozer -v android debug
+```
+Output APK `bin/` folder me milega. ⚠️ Ye process **bahut storage (5-10GB+) aur time** leta hai — powerful phone (6GB+ RAM) recommended hai.
+
+### Method B: Native tools directly Termux me (chhote/manual APKs ke liye)
+
+```bash
+pkg install aapt apksigner dx ecj openjdk-17
+```
+Ye tools manually `.apk` package karne, sign karne ke liye use hote hain — ye advanced/educational route hai, real projects ke liye Method A behtar hai.
+
+### Method C: Gradle-based Android project build karna
+
+Agar aapke paas already ek Android project (Java/Kotlin, Gradle) hai:
+```bash
+pkg install openjdk-17
+proot-distro login ubuntu   # Android SDK ke saath better compatibility ke liye
+cd my-android-project
+./gradlew assembleDebug
+```
+Output: `app/build/outputs/apk/debug/app-debug.apk`
+
+**Sacchai:** Complex/large Android apps build karna phone par slow aur resource-heavy hota hai. Chhote personal projects/learning ke liye theek hai, professional development ke liye laptop/PC hi best rahega.
+
+---
+
+## Module 35 — Capstone Project
 
 **Project: Auto-Backup Script**
 
@@ -824,7 +1068,7 @@ Isko `cron` ke through daily automate karo — Module 12 dekho.
 
 ---
 
-## Module 31 — Next Steps
+## Module 36 — Next Steps
 
 - `man command` ya `command --help` se har command ki full detail padho
 - Roz 3-5 naye commands practice karo
